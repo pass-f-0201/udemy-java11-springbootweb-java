@@ -19,6 +19,7 @@ public class QuizAppController {
         return quizzes;
     }
 
+
     
     // 引数 String型 question, boolean型 answer
     @PostMapping("/create")
