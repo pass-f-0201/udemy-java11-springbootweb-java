@@ -36,7 +36,13 @@ public class QuizAppController {
         for(Quiz quiz: quizzes) {
             // もしクイズが見つかったら
             if(quiz.getQuestion().equals(question)) {
-                return "見つかった!" + quiz.getQuestion();
+                // 登録されているanswerと回答として渡ってきたanswerが一致している場合、「正解」と返却する
+                if(quiz.isAnswer() == answer) {
+                    return "正解！";
+                } else {
+                    // もし一致していなければ「不正解」と返却する
+                    return "不正解！";
+                }
             }
         }
 
