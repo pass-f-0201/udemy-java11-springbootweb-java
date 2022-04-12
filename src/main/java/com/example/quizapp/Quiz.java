@@ -23,4 +23,8 @@ public class Quiz {
         return answer;
     }
 
+    public String toString() {
+        String marubatsu = answer ? "○" : "☓";
+        return  question + " " + marubatsu;
+    }
 }
