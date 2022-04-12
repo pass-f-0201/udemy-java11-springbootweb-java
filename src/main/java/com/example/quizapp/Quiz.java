@@ -23,6 +23,7 @@ public class Quiz {
         return answer;
     }
 
+    @Override
     public String toString() {
         String marubatsu = answer ? "○" : "☓";
         return  question + " " + marubatsu;
