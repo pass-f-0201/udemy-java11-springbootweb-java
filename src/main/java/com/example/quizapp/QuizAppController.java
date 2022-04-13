@@ -1,16 +1,19 @@
 package com.example.quizapp;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@RestController
+@Controller
+@RequestMapping("page")
 public class QuizAppController {
 
     private List<Quiz> quizzes = new ArrayList<>();
@@ -23,10 +26,11 @@ public class QuizAppController {
         return quizzes.get(index);
     }
 
-    // 引数 なし
+    // showメソッド
     @GetMapping("/show")
-    public List<Quiz> show() {
-        return quizzes;
+    public String show(Model model) {
+        model.addAttribute("quizzes", quizzes);
+        return "list";
     }
 
     // 引数 String型 question, boolean型 answer（正解）

@@ -1,36 +1,24 @@
 package com.example.quizapp;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-@Controller
-@RequestMapping("page")
+@RestController
 public class QuizApiController {
 
     private List<Quiz> quizzes = new ArrayList<>();
     private QuizFileDao quizFileDao = new QuizFileDao();
 
-    @GetMapping("/quiz")
-    public Quiz quiz() {
-        int index = new Random().nextInt(quizzes.size());
-
-        return quizzes.get(index);
-    }
-
-    // showメソッド
+    // 引数 なし
     @GetMapping("/show")
-    public String show(Model model) {
-        model.addAttribute("quizzes", quizzes);
-        return "list";
+    public List<Quiz> show() {
+        return quizzes;
     }
 
     // 引数 String型 question, boolean型 answer（正解）
@@ -72,17 +60,6 @@ public class QuizApiController {
         } catch (IOException e) {
             e.printStackTrace();
             return "ファイルの保存に失敗しました";
-        }
-    }
-
-    @GetMapping("/load")
-    public String load(){
-        try {
-            quizzes = quizFileDao.read();
-            return "ファイルを読み込みました";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "ファイルを読み込みに失敗しました";
         }
     }
 }
