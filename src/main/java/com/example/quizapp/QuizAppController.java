@@ -46,9 +46,9 @@ public class QuizAppController {
         return "redirect:/page/show";
     }
 
-    // 引数 String型 question（質問文）, boolean型 answer（回答）
+    // checkメソッド
     @GetMapping("/check")
-    public String check(@RequestParam String question,@RequestParam  boolean answer) {
+    public String check(Model model,@RequestParam String question,@RequestParam  boolean answer) {
 
         // 回答が正しいかどうかチェックして、結果を返却する
         // 指定されたquestionを登録済みのクイズから検索する
@@ -56,17 +56,18 @@ public class QuizAppController {
             // もしクイズが見つかったら
             if(quiz.getQuestion().equals(question)) {
                 // 登録されているanswerと回答として渡ってきたanswerが一致している場合、「正解」と返却する
+                model.addAttribute("quiz",quiz);
                 if(quiz.isAnswer() == answer) {
-                    return "正解！";
+                    // 「正解」とセットする
+                    model.addAttribute("result", "正解");
                 } else {
-                    // もし一致していなければ「不正解」と返却する
-                    return "不正解！";
-                }
+                    // もし一致していなければ「不正解」とセットする
+                    model.addAttribute("result", "不正解！");
+                 }
             }
         }
 
-        // クイズが見つからなかった場合は、「問題がありません」と返却する
-        return "問題がありません";
+        return "answer";
     }
 
     @PostMapping("/save")
