@@ -35,10 +35,12 @@ public class QuizAppController {
 
     // 引数 String型 question, boolean型 answer（正解）
     @PostMapping("/create")
-    public void create(@RequestParam String question, @RequestParam boolean answer) {
+    public String create(@RequestParam String question, @RequestParam boolean answer) {
 
         Quiz quiz = new Quiz(question, answer);
         quizzes.add(quiz);
+
+        return "redirect:/page/show";
     }
 
     // 引数 String型 question（質問文）, boolean型 answer（回答）
