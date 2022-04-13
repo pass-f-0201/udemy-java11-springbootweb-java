@@ -21,4 +21,17 @@ public class QuizFileDao {
         Path path = Paths.get(FILE_PATH);
         Files.write(path,lines);
     }
+
+    public List<Quiz> read() throws  IOException {
+        Path path = Paths.get(FILE_PATH);
+        List<String> lines = Files.readAllLines(path);
+
+        List<Quiz> quizzes = new ArrayList<>();
+        for (String line: lines) {
+            quizzes.add(Quiz.fromString(line));
+        }
+
+        return quizzes;
+    }
+
 }
